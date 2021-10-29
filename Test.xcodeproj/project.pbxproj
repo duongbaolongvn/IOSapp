@@ -19,6 +19,8 @@
 		D0498A412714387E00E53689 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0498A402714387E00E53689 /* Project.swift */; };
 		D0498A442714392500E53689 /* Projects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0498A432714392500E53689 /* Projects.swift */; };
 		D0498A462716BBBD00E53689 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0498A452716BBBD00E53689 /* ProjectTableViewCell.swift */; };
+		D09BC19B272175FB000318B1 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09BC19A272175FB000318B1 /* EditView.swift */; };
+		D0AEEEBF272699430062120E /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AEEEBE272699430062120E /* GalleryView.swift */; };
 		D1F518BFE57175540C0068E9 /* Pods_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3205BD4C5E551F4C93111F49 /* Pods_Test.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +42,8 @@
 		D0498A402714387E00E53689 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		D0498A432714392500E53689 /* Projects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projects.swift; sourceTree = "<group>"; };
 		D0498A452716BBBD00E53689 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
+		D09BC19A272175FB000318B1 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		D0AEEEBE272699430062120E /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,8 @@
 			isa = PBXGroup;
 			children = (
 				D00865DB271D27FB0007C5CA /* ViewGalleryController.swift */,
+				D0AEEEBE272699430062120E /* GalleryView.swift */,
+				D09BC19A272175FB000318B1 /* EditView.swift */,
 			);
 			path = ScreenTwo;
 			sourceTree = "<group>";
@@ -261,7 +267,9 @@
 				D0498A442714392500E53689 /* Projects.swift in Sources */,
 				D0498A3F271421A000E53689 /* K.swift in Sources */,
 				D0498A232714181A00E53689 /* SceneDelegate.swift in Sources */,
+				D09BC19B272175FB000318B1 /* EditView.swift in Sources */,
 				D0498A412714387E00E53689 /* Project.swift in Sources */,
+				D0AEEEBF272699430062120E /* GalleryView.swift in Sources */,
 				D0498A462716BBBD00E53689 /* ProjectTableViewCell.swift in Sources */,
 				D00865DC271D27FB0007C5CA /* ViewGalleryController.swift in Sources */,
 			);

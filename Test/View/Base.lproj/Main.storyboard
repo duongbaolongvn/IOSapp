@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZZ7-es-kFj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZZ7-es-kFj">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -120,25 +120,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="RVZ-dv-saN">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vdn-RS-LWf" customClass="GalleryView" customModule="Test" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="144" width="414" height="618"/>
+                                <color key="backgroundColor" systemColor="systemGray2Color"/>
+                            </view>
+                            <view clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YrO-2F-YAH" customClass="EditView" customModule="Test" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="144" width="414" height="618"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5v-wi-HSV">
+                                <rect key="frame" x="30" y="801" width="354" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="tapToCameraRoll:" destination="gmu-fG-xes" eventType="touchUpInside" id="VAc-0u-3Yb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hbh-GD-cEV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="hbh-GD-cEV" firstAttribute="bottom" secondItem="RVZ-dv-saN" secondAttribute="bottom" id="Qn6-b5-mLt"/>
-                            <constraint firstItem="RVZ-dv-saN" firstAttribute="leading" secondItem="hbh-GD-cEV" secondAttribute="leading" id="c4s-EV-BqK"/>
-                            <constraint firstItem="RVZ-dv-saN" firstAttribute="top" secondItem="hbh-GD-cEV" secondAttribute="top" id="cqh-rp-MKY"/>
-                            <constraint firstItem="hbh-GD-cEV" firstAttribute="trailing" secondItem="RVZ-dv-saN" secondAttribute="trailing" id="lH9-VK-now"/>
+                            <constraint firstItem="YrO-2F-YAH" firstAttribute="top" secondItem="vdn-RS-LWf" secondAttribute="top" id="1tu-pq-rgs"/>
+                            <constraint firstItem="vdn-RS-LWf" firstAttribute="leading" secondItem="hbh-GD-cEV" secondAttribute="leading" id="5eC-RD-K4I"/>
+                            <constraint firstItem="YrO-2F-YAH" firstAttribute="leading" secondItem="vdn-RS-LWf" secondAttribute="leading" id="Ceh-f1-23A"/>
+                            <constraint firstItem="vdn-RS-LWf" firstAttribute="top" secondItem="hbh-GD-cEV" secondAttribute="top" constant="100" id="LPs-LL-OGW"/>
+                            <constraint firstItem="YrO-2F-YAH" firstAttribute="trailing" secondItem="vdn-RS-LWf" secondAttribute="trailing" id="Qxm-w4-gOP"/>
+                            <constraint firstItem="hbh-GD-cEV" firstAttribute="trailing" secondItem="vdn-RS-LWf" secondAttribute="trailing" id="SkF-8H-PmT"/>
+                            <constraint firstItem="hbh-GD-cEV" firstAttribute="bottom" secondItem="vdn-RS-LWf" secondAttribute="bottom" constant="100" id="Skz-Xo-jI6"/>
+                            <constraint firstItem="d5v-wi-HSV" firstAttribute="leading" secondItem="hbh-GD-cEV" secondAttribute="leading" constant="30" id="T66-33-Nhu"/>
+                            <constraint firstItem="hbh-GD-cEV" firstAttribute="trailing" secondItem="d5v-wi-HSV" secondAttribute="trailing" constant="30" id="XsJ-Ro-2Ka"/>
+                            <constraint firstItem="hbh-GD-cEV" firstAttribute="bottom" secondItem="d5v-wi-HSV" secondAttribute="bottom" constant="30" id="d0T-xo-2LI"/>
+                            <constraint firstItem="YrO-2F-YAH" firstAttribute="bottom" secondItem="vdn-RS-LWf" secondAttribute="bottom" id="rmu-Is-wIZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mGZ-hN-WBl"/>
+                    <connections>
+                        <outlet property="container" destination="vdn-RS-LWf" id="Htd-II-SJC"/>
+                        <outlet property="editView" destination="YrO-2F-YAH" id="fiN-u7-TZM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tao-Wt-q4z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1707" y="88"/>
+            <point key="canvasLocation" x="1705.7971014492755" y="87.723214285714278"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="taA-BP-leb">
@@ -163,6 +185,9 @@
         <image name="minus.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

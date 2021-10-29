@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var tbview: UITableView!
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(forName: Notification.Name(Projects.projectDidLoadKey), object: nil, queue: nil) { _ in
@@ -24,16 +25,20 @@ class ViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
+
     }
     //MARK: add button
     @IBAction func addButtonPressed(_ sender: UIButton) {
         var textField = UITextField()
-        
+         
         let alert = UIAlertController(title: "Add new project", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
             
             let newItem = Project(id: UUID().uuidString, name: textField.text!)
             newItem.name = textField.text!
+            // create random id for new project
+            let newId = String(describing:UUID())
+            newItem.id = newId
             self.project.projects.append(newItem)
             self.tbview.reloadData()
         }
@@ -71,9 +76,10 @@ extension ViewController: UITableViewDataSource, ProjectTableViewCellDelegate  {
         screnTwo.project = project.projects[index]
         navigation.pushViewController(screnTwo, animated: true)
         print(index)
+        print(project.projects[index].id)
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return project.projects.count ?? 0
+        return project.projects.count
     }
     
     
@@ -87,7 +93,6 @@ extension ViewController: UITableViewDataSource, ProjectTableViewCellDelegate  {
         
         cell.textName.text = project.projects[indexPath.row].name
         cell.delegate = self
-//        self.navigationController?.pushViewController(, animated: true)
         return cell
     }
     
