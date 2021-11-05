@@ -29,24 +29,24 @@ class ViewController: UIViewController {
     }
     //MARK: add button
     @IBAction func addButtonPressed(_ sender: UIButton) {
-        var textField = UITextField()
-         
+
         let alert = UIAlertController(title: "Add new project", message: "", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Add", style: .default) { (action) in
+        alert.addTextField { (UITextField) in
+            UITextField.placeholder = "Add new project"
+        }
+        alert.addAction(UIAlertAction(title: "Add", style: .default) { (action) in
+            guard let text = alert.textFields?.first,
+                  let name = text.text else {return}
+            if name == "" {
+                self.present(alert, animated: true, completion: nil)
+            }else {
+                self.project.addProject(name)
+                self.tbview.insertRows(at: [IndexPath(item: self.project.projects.count - 1, section: 0)], with: .automatic)
+            }
             
-            let newItem = Project(id: UUID().uuidString, name: textField.text!)
-            newItem.name = textField.text!
-            // create random id for new project
-            let newId = String(describing:UUID())
-            newItem.id = newId
-            self.project.projects.append(newItem)
-            self.tbview.reloadData()
-        }
-        alert.addTextField { (alertAddTextField) in
-            alertAddTextField.placeholder = "Create new project"
-            textField = alertAddTextField
-        }
-        alert.addAction(action)
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
         
     }

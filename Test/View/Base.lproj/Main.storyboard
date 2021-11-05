@@ -17,16 +17,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jsZ-Zr-fiJ">
-                                <rect key="frame" x="61" y="781" width="277" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jsZ-Zr-fiJ">
+                                <rect key="frame" x="65" y="772" width="284" height="60"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="VdJ-IP-MlO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Symbol" family="Symbol" pointSize="15"/>
+                                <state key="normal" title="Add project">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="addButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BYO-OJ-FcW"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ArA-7Y-DTf">
-                                <rect key="frame" x="20" y="157" width="374" height="625"/>
+                                <rect key="frame" x="20" y="113" width="374" height="649"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectCell" id="lFT-iS-Ofs" customClass="ProjectTableViewCell" customModule="Test" customModuleProvider="target">
@@ -99,8 +110,11 @@
                         <constraints>
                             <constraint firstItem="ArA-7Y-DTf" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" constant="-40" id="2uR-2C-atG"/>
                             <constraint firstItem="ArA-7Y-DTf" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="51L-UE-71r"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ArA-7Y-DTf" secondAttribute="bottom" constant="80" id="F8C-vA-epG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ArA-7Y-DTf" secondAttribute="bottom" constant="100" id="F8C-vA-epG"/>
                             <constraint firstItem="ArA-7Y-DTf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="69" id="Sd8-83-4pa"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jsZ-Zr-fiJ" secondAttribute="bottom" constant="30" id="VTs-DD-Yfh"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jsZ-Zr-fiJ" secondAttribute="trailing" constant="65" id="aMe-mI-hWp"/>
+                            <constraint firstItem="jsZ-Zr-fiJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="65" id="fg3-di-RAZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="U5g-QW-gjr"/>
@@ -128,11 +142,35 @@
                                 <rect key="frame" x="0.0" y="144" width="414" height="618"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5v-wi-HSV">
-                                <rect key="frame" x="30" y="801" width="354" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <rect key="frame" x="65" y="772" width="284" height="60"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="RST-jR-b7n"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Symbol" family="Symbol" pointSize="15"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Add Photo">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="tapToCameraRoll:" destination="gmu-fG-xes" eventType="touchUpInside" id="VAc-0u-3Yb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15c-Hq-Dyz">
+                                <rect key="frame" x="10" y="64" width="60" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="7Gd-BE-nqF"/>
+                                    <constraint firstAttribute="width" constant="60" id="jPw-8e-lL6"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Back"/>
+                                <connections>
+                                    <action selector="backButton:" destination="gmu-fG-xes" eventType="touchUpInside" id="cfa-ek-4BY"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -146,10 +184,12 @@
                             <constraint firstItem="YrO-2F-YAH" firstAttribute="trailing" secondItem="vdn-RS-LWf" secondAttribute="trailing" id="Qxm-w4-gOP"/>
                             <constraint firstItem="hbh-GD-cEV" firstAttribute="trailing" secondItem="vdn-RS-LWf" secondAttribute="trailing" id="SkF-8H-PmT"/>
                             <constraint firstItem="hbh-GD-cEV" firstAttribute="bottom" secondItem="vdn-RS-LWf" secondAttribute="bottom" constant="100" id="Skz-Xo-jI6"/>
-                            <constraint firstItem="d5v-wi-HSV" firstAttribute="leading" secondItem="hbh-GD-cEV" secondAttribute="leading" constant="30" id="T66-33-Nhu"/>
-                            <constraint firstItem="hbh-GD-cEV" firstAttribute="trailing" secondItem="d5v-wi-HSV" secondAttribute="trailing" constant="30" id="XsJ-Ro-2Ka"/>
+                            <constraint firstItem="d5v-wi-HSV" firstAttribute="leading" secondItem="hbh-GD-cEV" secondAttribute="leading" constant="65" id="T66-33-Nhu"/>
+                            <constraint firstItem="hbh-GD-cEV" firstAttribute="trailing" secondItem="d5v-wi-HSV" secondAttribute="trailing" constant="65" id="XsJ-Ro-2Ka"/>
+                            <constraint firstItem="15c-Hq-Dyz" firstAttribute="top" secondItem="hbh-GD-cEV" secondAttribute="top" constant="20" id="avE-mU-OHK"/>
                             <constraint firstItem="hbh-GD-cEV" firstAttribute="bottom" secondItem="d5v-wi-HSV" secondAttribute="bottom" constant="30" id="d0T-xo-2LI"/>
                             <constraint firstItem="YrO-2F-YAH" firstAttribute="bottom" secondItem="vdn-RS-LWf" secondAttribute="bottom" id="rmu-Is-wIZ"/>
+                            <constraint firstItem="15c-Hq-Dyz" firstAttribute="leading" secondItem="hbh-GD-cEV" secondAttribute="leading" constant="10" id="s5z-jE-wWi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mGZ-hN-WBl"/>
@@ -165,10 +205,9 @@
         <!--Navigation Controller-->
         <scene sceneID="taA-BP-leb">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZZ7-es-kFj" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="ZZ7-es-kFj" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aZq-E4-gKo">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -183,6 +222,9 @@
     </scenes>
     <resources>
         <image name="minus.circle.fill" catalog="system" width="128" height="121"/>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

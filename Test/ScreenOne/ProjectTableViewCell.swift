@@ -51,6 +51,7 @@ class ProjectTableViewCell: UITableViewCell{
                 trallingSpace.constant = 0
             }else {
                 if trallingSpace.constant < 50 {
+                    didAction = !didAction
                     trallingSpace.constant = 0
                 }else{
                     trallingSpace.constant = 50

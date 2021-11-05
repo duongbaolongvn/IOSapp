@@ -16,6 +16,7 @@ class GalleryView: UIView {
     var project: Project?
     var allImage: [UIImageView] = []
     
+    
     weak var delegate: GalleryViewDelegate?
     
     private var didLoad = false
@@ -43,28 +44,33 @@ class GalleryView: UIView {
             im.removeFromSuperview()
         }
         allImage.removeAll()
-        
         for i in 0..<pr.image.count {
             let imageView = UIImageView(image: pr.image[i].image1)
+            print(imageView.frame)
             imageView.layer.frame = pr.image[i].frame
             setUpImageView(imageView)
+            
         }
     }
-    
     func addImage(_ image: UIImage) {
         let imageView = UIImageView(image: image)
-        let imageWidth = image.size.width
-        let imageHeight = image.size.height
-        let contanerWidth = self.frame.size.width
-        let contanerHeight = self.frame.size.height
-        let scaleImage = imageWidth / imageHeight
-        if scaleImage > 1 {
-            imageView.frame = CGRect(x: 0, y: 0, width: contanerWidth - 120, height: (contanerWidth - 120) / scaleImage)
+        let insideRect = bounds.insetBy(dx: 50, dy: 50)
+        var width: CGFloat = 100
+        var height: CGFloat = 100
+        if image.size.width > 0, image.size.height > 0 {
+            let imageRatio = image.size.width / image.size.height
+            let insideRatio = insideRect.size.width / insideRect.size.width
+            
+            if imageRatio > insideRatio {
+                width = insideRect.width
+                height = width / imageRatio
+            }else {
+                height = insideRect.height
+                width = height * imageRatio
+            }
+            imageView.frame = CGRect(x: insideRect.midX, y: insideRect.midY, width: 0, height: 0).insetBy(dx: -width/2, dy: -height/2)
         }
-        else {
-            imageView.frame = CGRect(x: 0, y: 0, width: (contanerHeight - 100) * scaleImage, height: contanerHeight - 100)
-        }
-        imageView.center = CGPoint(x: contanerWidth/2, y: contanerHeight/2)
+        
         setUpImageView(imageView)
         
         if let pr = project {
@@ -74,6 +80,18 @@ class GalleryView: UIView {
         self.delegate?.galleryViewSelectImage(imageView)
         setUpSelectView(imageView)
         showButton(imageView)
+    }
+    func setUpImageView(_ imageView: UIImageView){
+        if imageView.isUserInteractionEnabled {return}
+        
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapView(_:))))
+        imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panView(_:))))
+        imageView.addGestureRecognizer(UIRotationGestureRecognizer(target: self, action: #selector(rotateView(_:))))
+        imageView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(pinchView(_:))))
+        
+        allImage.append(imageView)
+        addSubview(imageView)
     }
     @objc private func deleteImage(_ b: UIButton){
         guard let selectedView = selectedView,
@@ -92,25 +110,17 @@ class GalleryView: UIView {
         self.bringSubviewToFront(view)
         buttonDelete.alpha = 1
     }
-    func setUpImageView(_ imageView: UIImageView){
-        if imageView.isUserInteractionEnabled {return}
-        
-        imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapView(_:))))
-        imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panView(_:))))
-        imageView.addGestureRecognizer(UIRotationGestureRecognizer(target: self, action: #selector(rotateView(_:))))
-        imageView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(pinchView(_:))))
-        
-        allImage.append(imageView)
-        addSubview(imageView)
-    }
+    
     func finishGesture(_ view: UIImageView){
         guard let pr = project else {return}
         
         for im in 0..<pr.image.count {
-            pr.image[im].transform = allImage[im].transform
+            if view.image == pr.image[im].image1 {
+                pr.image[im].frame = view.frame
+            }
         }
     }
+    
     func showButton(_ view: UIImageView) {
         let a = view.transform.a
         let c = view.transform.c
@@ -173,6 +183,7 @@ class GalleryView: UIView {
             }
         case .ended:
             finishGesture(view)
+            print("end")
         default:
             print("end")
         }
@@ -192,6 +203,7 @@ class GalleryView: UIView {
             }
         case .ended:
             finishGesture(view)
+            print("end")
         default:
             print("end")
         }
@@ -212,6 +224,7 @@ class GalleryView: UIView {
             }
         case .ended:
             finishGesture(view)
+            print("end")
         default:
             print("end")
         }

@@ -9,17 +9,22 @@ import Foundation
 import Alamofire
 
 class Projects {
-//    var result = 0
+    //    var result = 0
     var projects: [Project] = []
     
     static let main = Projects()
     
     static let projectDidLoadKey = "getProjectsDone"
+    
     init() {
         loadProject()
         
     }
     
+    func addProject(_ name: String) {
+        let newItem = Project(id: UUID().uuidString, name: name)
+        projects.append(newItem)
+    }
     func loadProject() {
         AF.request("https://tapuniverse.com/xproject")
             .validate()
@@ -28,7 +33,7 @@ class Projects {
                 if let json = value as? [String: Any],
                    let r = json["result"] as? Int,
                    let project = json["projects"] as? [[String: Any]] {
-//                    self.result = r
+                    //                    self.result = r
                     for i in 0..<project.count {
                         if let id = project[i]["id"] as? Int,
                            let name = project[i]["name"] as? String{
@@ -40,14 +45,23 @@ class Projects {
                     }
                     
                     NotificationCenter.default.post(name: Notification.Name(Projects.projectDidLoadKey), object: nil)
-//                    NotificationCenter.default.post(name: <#T##NSNotification.Name#>, object: <#T##Any?#>)
                 }
                 
             })
         
     }
+
     
-    func deleteData() -> Void {
+    func deleteData() -> Void {}
+    
+}
+
+
+struct ProjectsData: Codable {
+    var checkApi = false
+    var projectsString: [A]
+    
+    func projectsToString() {
         
     }
 }
