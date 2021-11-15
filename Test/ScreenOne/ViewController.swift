@@ -75,8 +75,6 @@ extension ViewController: UITableViewDataSource, ProjectTableViewCellDelegate  {
         }
         screnTwo.project = project.projects[index]
         navigation.pushViewController(screnTwo, animated: true)
-        print(index)
-        print(project.projects[index].id)
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return project.projects.count

@@ -8,8 +8,8 @@ protocol GalleryViewDelegate: AnyObject {
     func galleryViewSelectImage (_ view: UIImageView)
     func galleryViewChangeImage(_ view: UIImageView)
     func galleryDeselect ()
+    func changeSliderWithImage(_ view: UIImageView)
 }
-
 class GalleryView: UIView {
     
     var index: Int = 0
@@ -38,6 +38,12 @@ class GalleryView: UIView {
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapView(_:))))
         isUserInteractionEnabled = true
     }
+    
+    func updateOpacity(_ alpha: Double) {
+        guard let image = selectedView else {return}
+        image.alpha = alpha
+        
+    }
     func reload() {
         guard let  pr = project else { return }
         for im in allImage {
@@ -46,7 +52,6 @@ class GalleryView: UIView {
         allImage.removeAll()
         for i in 0..<pr.image.count {
             let imageView = UIImageView(image: pr.image[i].image1)
-            print(imageView.frame)
             imageView.layer.frame = pr.image[i].frame
             setUpImageView(imageView)
             
@@ -74,7 +79,8 @@ class GalleryView: UIView {
         setUpImageView(imageView)
         
         if let pr = project {
-            let newImageData = ImageData(image1: image, frame: imageView.frame)
+            let newImageId = UUID().uuidString
+            let newImageData = ImageData(image1: image, frame: imageView.frame, opacity: 1, imageId: newImageId)
             pr.image.append(newImageData)
         }
         self.delegate?.galleryViewSelectImage(imageView)
@@ -87,7 +93,7 @@ class GalleryView: UIView {
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapView(_:))))
         imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panView(_:))))
-        imageView.addGestureRecognizer(UIRotationGestureRecognizer(target: self, action: #selector(rotateView(_:))))
+        imageView.addGestureRecognizer(UIRotationGestureRecognizer(target: self, action: #selector(rotateView(_:))))                                                        
         imageView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(pinchView(_:))))
         
         allImage.append(imageView)
@@ -109,6 +115,8 @@ class GalleryView: UIView {
         selectedView = view
         self.bringSubviewToFront(view)
         buttonDelete.alpha = 1
+        self.delegate?.changeSliderWithImage(view)
+        selectedView = view
     }
     
     func finishGesture(_ view: UIImageView){
@@ -121,6 +129,8 @@ class GalleryView: UIView {
         }
     }
     
+    func changeSlideWithImage(_ view: UIImageView){
+    }
     func showButton(_ view: UIImageView) {
         let a = view.transform.a
         let c = view.transform.c
@@ -157,6 +167,7 @@ class GalleryView: UIView {
                     selectedView = nil
                     buttonDelete.alpha = 0
                 }
+//                print(view.alpha)
             default:
                 print("end")
             }

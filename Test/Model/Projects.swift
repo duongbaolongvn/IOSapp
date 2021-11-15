@@ -31,7 +31,6 @@ class Projects {
             .responseJSON(completionHandler: { response in
                 let value = response.value
                 if let json = value as? [String: Any],
-                   let r = json["result"] as? Int,
                    let project = json["projects"] as? [[String: Any]] {
                     //                    self.result = r
                     for i in 0..<project.count {
@@ -48,20 +47,6 @@ class Projects {
                 }
                 
             })
-        
-    }
-
-    
-    func deleteData() -> Void {}
-    
-}
-
-
-struct ProjectsData: Codable {
-    var checkApi = false
-    var projectsString: [A]
-    
-    func projectsToString() {
         
     }
 }

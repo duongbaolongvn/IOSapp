@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D006BF3E2741594400989110 /* ScreenThreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D006BF3D2741594400989110 /* ScreenThreeViewController.swift */; };
+		D006BF402741596100989110 /* ScreenThreeViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D006BF3F2741596100989110 /* ScreenThreeViewControllerCell.swift */; };
 		D00865DC271D27FB0007C5CA /* ViewGalleryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00865DB271D27FB0007C5CA /* ViewGalleryController.swift */; };
+		D028304E273FE7D000E59717 /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D028304D273FE7D000E59717 /* SliderView.swift */; };
 		D0498A212714181A00E53689 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0498A202714181A00E53689 /* AppDelegate.swift */; };
 		D0498A232714181A00E53689 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0498A222714181A00E53689 /* SceneDelegate.swift */; };
 		D0498A252714181A00E53689 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0498A242714181A00E53689 /* ViewController.swift */; };
@@ -28,7 +31,10 @@
 		3205BD4C5E551F4C93111F49 /* Pods_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB2851F33B8E9A6535BD022A /* Pods-Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test.release.xcconfig"; path = "Target Support Files/Pods-Test/Pods-Test.release.xcconfig"; sourceTree = "<group>"; };
 		C66F69D0E1DF34EAAEFB992A /* Pods-Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test.debug.xcconfig"; path = "Target Support Files/Pods-Test/Pods-Test.debug.xcconfig"; sourceTree = "<group>"; };
+		D006BF3D2741594400989110 /* ScreenThreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenThreeViewController.swift; sourceTree = "<group>"; };
+		D006BF3F2741596100989110 /* ScreenThreeViewControllerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenThreeViewControllerCell.swift; sourceTree = "<group>"; };
 		D00865DB271D27FB0007C5CA /* ViewGalleryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewGalleryController.swift; sourceTree = "<group>"; };
+		D028304D273FE7D000E59717 /* SliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
 		D0498A1D2714181A00E53689 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0498A202714181A00E53689 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0498A222714181A00E53689 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,19 +81,37 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		D006BF3C2741592300989110 /* ScreenThree */ = {
+			isa = PBXGroup;
+			children = (
+				D006BF3D2741594400989110 /* ScreenThreeViewController.swift */,
+				D006BF3F2741596100989110 /* ScreenThreeViewControllerCell.swift */,
+			);
+			path = ScreenThree;
+			sourceTree = "<group>";
+		};
 		D00865DD271D610E0007C5CA /* ScreenTwo */ = {
 			isa = PBXGroup;
 			children = (
 				D00865DB271D27FB0007C5CA /* ViewGalleryController.swift */,
 				D0AEEEBE272699430062120E /* GalleryView.swift */,
+				D028304D273FE7D000E59717 /* SliderView.swift */,
 				D09BC19A272175FB000318B1 /* EditView.swift */,
 			);
 			path = ScreenTwo;
 			sourceTree = "<group>";
 		};
+		D042F4322740AA6F008438ED /* Support */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 		D0498A142714181A00E53689 = {
 			isa = PBXGroup;
 			children = (
+				D042F4322740AA6F008438ED /* Support */,
 				D0498A1F2714181A00E53689 /* Test */,
 				D0498A1E2714181A00E53689 /* Products */,
 				BDD50C915FFE0B362083B3F0 /* Pods */,
@@ -108,6 +132,7 @@
 			children = (
 				D0498A202714181A00E53689 /* AppDelegate.swift */,
 				D0498A222714181A00E53689 /* SceneDelegate.swift */,
+				D006BF3C2741592300989110 /* ScreenThree */,
 				D00865DD271D610E0007C5CA /* ScreenTwo */,
 				D0498A392714185000E53689 /* ScreenOne */,
 				D0498A382714184A00E53689 /* View */,
@@ -264,12 +289,15 @@
 				D0498A252714181A00E53689 /* ViewController.swift in Sources */,
 				D0498A2B2714181A00E53689 /* Test.xcdatamodeld in Sources */,
 				D0498A212714181A00E53689 /* AppDelegate.swift in Sources */,
+				D006BF402741596100989110 /* ScreenThreeViewControllerCell.swift in Sources */,
 				D0498A442714392500E53689 /* Projects.swift in Sources */,
 				D0498A3F271421A000E53689 /* K.swift in Sources */,
 				D0498A232714181A00E53689 /* SceneDelegate.swift in Sources */,
 				D09BC19B272175FB000318B1 /* EditView.swift in Sources */,
+				D006BF3E2741594400989110 /* ScreenThreeViewController.swift in Sources */,
 				D0498A412714387E00E53689 /* Project.swift in Sources */,
 				D0AEEEBF272699430062120E /* GalleryView.swift in Sources */,
+				D028304E273FE7D000E59717 /* SliderView.swift in Sources */,
 				D0498A462716BBBD00E53689 /* ProjectTableViewCell.swift in Sources */,
 				D00865DC271D27FB0007C5CA /* ViewGalleryController.swift in Sources */,
 			);
