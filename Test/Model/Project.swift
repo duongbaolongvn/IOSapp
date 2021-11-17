@@ -22,6 +22,11 @@ class Project {
         self.id = id
         self.name = name
     }
+    func rerange (image: [ImageData], fromIndex: Int)  {
+        var arr = image
+        let element = arr.remove(at: fromIndex)
+        arr.append(element)
+    }
     func saveData(){
         var savedObject = A(id: id, name: name, images: [ImageBase?](repeating: nil, count: image.count))
         for im in 0..<image.count {
@@ -49,19 +54,17 @@ class Project {
                    let imageIdLoad = sameA.images[im]?.imageIdData {
                     let fileUrl = url.appendingPathComponent("image\(imageIdLoad)")
                     if let imageFromFile = UIImage(contentsOfFile: fileUrl.path){
-                        let imageData = ImageData(image1: imageFromFile, frame: sameA.images[im]!.frame1, opacity: 1, imageId: imageIdLoad)
+                        let imageData = ImageData(image1: imageFromFile, frame: sameA.images[im]!.frame1, opacity: sameA.images[im]!.opacity, imageId: imageIdLoad)
+
                         self.image.append(imageData)
                     }
                 }
             }
         }
-//        didDownloadImage = true
-//        return didDownloadImage
         return true
     }
     func getDetail(_ completion: (() -> Void)? = nil, _ id: String ) {
         if loadData(id) {
-            print(image.count)
             if let p = completion {
                 p()
             }
@@ -94,14 +97,8 @@ class Project {
                                         self.image.append(imageData)
                                         if let c = completion {
                                             c()
-//                                            print(self.image.count)
                                         }
                                     }
-                                    
-                                    //                                        count += 1
-                                    //                                        if count >= photo.count {
-                                    //                                            self.busy = false
-                                    //                                        }
                                 }
                         }
                     }
@@ -115,25 +112,28 @@ class ImageData{
     var image1: UIImage
     var frame = CGRect.zero
     var transform = CGAffineTransform.identity
-    var opacity: Int = 1
-    var imageId: String = ""
-    init(image1: UIImage, frame: CGRect, opacity: Int, imageId: String){
+    var opacity: CGFloat
+    var imageId: String
+    init(image1: UIImage, frame: CGRect, opacity: CGFloat, imageId: String){
         self.image1 = image1
         self.frame = frame
         self.opacity = opacity
         self.imageId = imageId
     }
     
+    func changeAlpha(_ alpha: CGFloat) {
+        self.opacity = alpha
+    }
     func imageToObject(_ imageId: String) -> ImageBase {
         
-        var object = ImageBase(url: "", frame1: CGRect.zero, opacity: 1, imageIdData: imageId)
+        var object = ImageBase(url: "", frame1: frame, opacity: opacity, imageIdData: imageId)
         if let data = image1.jpegData(compressionQuality: 1),
            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
         {
             let fileUrl = url.appendingPathComponent("image\(imageId).png")
             do {
                 try data.write(to: fileUrl)
-                object = ImageBase(url: fileUrl.path, frame1: frame, opacity: 1, imageIdData: imageId )
+                object = ImageBase(url: fileUrl.path, frame1: frame, opacity: opacity, imageIdData: imageId )
                 return object
             } catch {
                 print(error.localizedDescription)
@@ -154,6 +154,6 @@ struct A: Codable {
 struct ImageBase: Codable {
     var url: String
     var frame1 = CGRect.zero
-    var opacity: Int
+    var opacity: CGFloat
     var imageIdData: String
 }

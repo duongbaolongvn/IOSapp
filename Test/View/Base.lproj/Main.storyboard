@@ -181,6 +181,15 @@
                                     <action selector="backButton:" destination="gmu-fG-xes" eventType="touchUpInside" id="cfa-ek-4BY"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B0m-rT-riJ">
+                                <rect key="frame" x="330" y="64" width="77" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Export"/>
+                                <connections>
+                                    <action selector="exportButton:" destination="gmu-fG-xes" eventType="touchUpInside" id="akF-H6-2fo"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hbh-GD-cEV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

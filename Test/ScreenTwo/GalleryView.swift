@@ -3,6 +3,7 @@
 
 
 import UIKit
+import CoreMIDI
 
 protocol GalleryViewDelegate: AnyObject {
     func galleryViewSelectImage (_ view: UIImageView)
@@ -24,7 +25,6 @@ class GalleryView: UIView {
     var beginTransform = CGAffineTransform.identity
     var selectedView: UIImageView?
     let buttonDelete = UIButton()
-    
     let image = UIImage(named: "minus")
     override func draw(_ rect: CGRect) {
         if didLoad {return}
@@ -42,6 +42,24 @@ class GalleryView: UIView {
     func updateOpacity(_ alpha: Double) {
         guard let image = selectedView else {return}
         image.alpha = alpha
+    }
+    func backButtonPressed() {
+        guard let view = selectedView else {return}
+        if let pr = project {
+            for im in 0..<pr.image.count {
+                if pr.image[im].image1 == view.image {
+                    pr.image[im].changeAlpha(view.alpha)
+                }
+            }
+        }
+    }
+    func finishChangedOpacity(_ view: UIImageView) {
+        guard let pr = project else {return}
+        for im in 0..<pr.image.count {
+            if pr.image[im].image1 == view.image {
+                pr.image[im].changeAlpha(view.alpha)
+            }
+        }
         
     }
     func reload() {
@@ -53,6 +71,7 @@ class GalleryView: UIView {
         for i in 0..<pr.image.count {
             let imageView = UIImageView(image: pr.image[i].image1)
             imageView.layer.frame = pr.image[i].frame
+            imageView.alpha = pr.image[i].opacity
             setUpImageView(imageView)
             
         }
@@ -93,7 +112,7 @@ class GalleryView: UIView {
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapView(_:))))
         imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panView(_:))))
-        imageView.addGestureRecognizer(UIRotationGestureRecognizer(target: self, action: #selector(rotateView(_:))))                                                        
+        imageView.addGestureRecognizer(UIRotationGestureRecognizer(target: self, action: #selector(rotateView(_:))))
         imageView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(pinchView(_:))))
         
         allImage.append(imageView)
@@ -112,11 +131,16 @@ class GalleryView: UIView {
         buttonDelete.alpha = 0
     }
     func setUpSelectView(_ view: UIImageView) {
-        selectedView = view
+        guard let d = delegate, let pr = project else {return}
         self.bringSubviewToFront(view)
         buttonDelete.alpha = 1
-        self.delegate?.changeSliderWithImage(view)
+        d.changeSliderWithImage(view)
         selectedView = view
+        var index = 0
+        for i in 0..<allImage.count {
+            if view.image == allImage[i] {index = i}
+        }
+        pr.rerange(image: pr.image, fromIndex: index)
     }
     
     func finishGesture(_ view: UIImageView){
@@ -129,8 +153,6 @@ class GalleryView: UIView {
         }
     }
     
-    func changeSlideWithImage(_ view: UIImageView){
-    }
     func showButton(_ view: UIImageView) {
         let a = view.transform.a
         let c = view.transform.c
@@ -143,14 +165,28 @@ class GalleryView: UIView {
     }
     
     
+    //MARK: save gallery to CameraRoll
     
+    func drawImage() -> UIImage {
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        let size = CGSize(width: bounds.width, height: bounds.height)
+        let render = UIGraphicsImageRenderer(size: size, format: format)
+        let image = render.image { context  in
+            UIColor.systemGray.setFill()
+            context.cgContext.fill(CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height))
+            for im in 0..<allImage.count {
+                let centerImage = allImage[im].transform.concatenating(CGAffineTransform(translationX: allImage[im].frame.midX, y: allImage[im].frame.midY))
+                context.cgContext.concatenate(centerImage)
+                let rect = CGRect(x: -allImage[im].frame.width/2, y: -allImage[im].frame.height/2, width: allImage[im].frame.width, height: allImage[im].frame.height)
+                allImage[im].image?.draw(in: rect, blendMode: .normal, alpha: 1)
+                context.cgContext.concatenate(centerImage.inverted())
+            }
+        }
+        return image
+    }
     
-    
-    
-    
-    
-    
-    
+    //MARK: Fuc for user interaction
     @objc func tapView(_ sender: UITapGestureRecognizer){
         guard let d = delegate else {return}
         if  let view = sender.view as? UIImageView {
@@ -158,16 +194,20 @@ class GalleryView: UIView {
             case .ended:
                 if selectedView != view {
                     d.galleryViewSelectImage(view)
+                    if selectedView != nil {
+                        finishChangedOpacity(selectedView!)
+                    }
                     selectedView = view
                     self.setUpSelectView(view)
                     showButton(view)
                 }
                 else {
+                    finishChangedOpacity(view)
                     d.galleryDeselect()
                     selectedView = nil
                     buttonDelete.alpha = 0
                 }
-//                print(view.alpha)
+                
             default:
                 print("end")
             }
@@ -175,7 +215,9 @@ class GalleryView: UIView {
         else {
             delegate?.galleryDeselect()
             buttonDelete.alpha = 0
+            finishChangedOpacity(selectedView!)
             selectedView = nil
+            
         }
         
     }

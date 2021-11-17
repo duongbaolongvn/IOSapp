@@ -23,7 +23,7 @@ class ViewGalleryController: UIViewController, GalleryViewDelegate, UINavigation
             self.editView.hide()
         }, pr.id)
     }
- 
+    
     @IBAction func backButton(_ sender: UIButton) {
         guard let pr = project else {return}
         DispatchQueue.main.async {
@@ -32,6 +32,7 @@ class ViewGalleryController: UIViewController, GalleryViewDelegate, UINavigation
                 self.navigationController?.popViewController(animated: true)
             }
             let saveAction = UIAlertAction(title: "Save project", style: .default) { _ in
+                self.container.backButtonPressed()
                 pr.saveData()
                 self.navigationController?.popViewController(animated: true)
             }
@@ -39,14 +40,42 @@ class ViewGalleryController: UIViewController, GalleryViewDelegate, UINavigation
             alert.addAction(saveAction)
             self.present(alert, animated: true, completion: nil)
         }
-       
+        
     }
     @IBAction func tapToCameraRoll(_ sender: UIButton) {
         guard let screen = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScreenThreeViewController") as? ScreenThreeViewController else { return }
         screen.delegate = self
         present(screen, animated: true, completion: nil)
     }
-        
+    
+    @IBAction func exportButton(_ sender: UIButton) {
+        DispatchQueue.main.async {
+            let galleryImage = self.container.drawImage()
+            let alert = UIAlertController(title: "Export", message: "Export or Share", preferredStyle: .alert)
+            let exportGallery = UIAlertAction(title: "Export", style: .default) { _ in
+                UIImageWriteToSavedPhotosAlbum(galleryImage, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+            }
+            let shareGallery = UIAlertAction(title: "Share", style: .default) { _ in
+                let activityViewController = UIActivityViewController(activityItems: [galleryImage], applicationActivities: nil)
+                self.present(activityViewController, animated: true, completion: nil)
+            }
+            alert.addAction(shareGallery)
+            alert.addAction(exportGallery)
+            self.present(alert, animated: true, completion: nil)
+            
+        }
+    }
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
+    }
     func galleryViewSelectImage(_ view: UIImageView) {
         sliderView.isHidden = false
         editView.show(view)
