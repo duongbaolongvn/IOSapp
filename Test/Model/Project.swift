@@ -22,25 +22,29 @@ class Project {
         self.id = id
         self.name = name
     }
-    func rerange (image: [ImageData], fromIndex: Int)  {
-        var arr = image
-        let element = arr.remove(at: fromIndex)
-        arr.append(element)
+    func rerange (fromIndex: Int)  {
+        let element = image.remove(at: fromIndex)
+        image.append(element)
+        print("\(element.transform)")
     }
     func saveData(){
-        var savedObject = A(id: id, name: name, images: [ImageBase?](repeating: nil, count: image.count))
+        var savedObject: [ImageBase?] = []
+        
         for im in 0..<image.count {
             let imageId = image[im].imageId
             let imageBase = image[im].imageToObject(imageId)
-            savedObject.images[im] = imageBase
+            savedObject.append(imageBase)
         }
+        let a = A(id: id, name: name, images: savedObject)
         let encoder = JSONEncoder()
-        if let dataOutPut = try? encoder.encode(savedObject),
+        if let dataOutPut = try? encoder.encode(a),
            let string = String(data: dataOutPut, encoding: .utf8){
+            print(string)
             UserDefaults.standard.set(string, forKey: "project\(id)")
         }
     }
     func loadData(_ id: String) -> Bool {
+        if image.count > 0 {return true}
         guard let stringData = UserDefaults.standard.string(forKey: "project\(id)") else {
             return false
         }
@@ -52,9 +56,10 @@ class Project {
             for im in 0..<sameA.images.count {
                 if let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first,
                    let imageIdLoad = sameA.images[im]?.imageIdData {
-                    let fileUrl = url.appendingPathComponent("image\(imageIdLoad)")
+                    let fileUrl = url.appendingPathComponent("image\(imageIdLoad).jpg")
                     if let imageFromFile = UIImage(contentsOfFile: fileUrl.path){
                         let imageData = ImageData(image1: imageFromFile, frame: sameA.images[im]!.frame1, opacity: sameA.images[im]!.opacity, imageId: imageIdLoad)
+                        imageData.transform = sameA.images[im]?.transform ?? .identity
 
                         self.image.append(imageData)
                     }
@@ -124,23 +129,22 @@ class ImageData{
     func changeAlpha(_ alpha: CGFloat) {
         self.opacity = alpha
     }
-    func imageToObject(_ imageId: String) -> ImageBase {
+    func imageToObject(_ imageId: String) -> ImageBase? {
         
-        var object = ImageBase(url: "", frame1: frame, opacity: opacity, imageIdData: imageId)
         if let data = image1.jpegData(compressionQuality: 1),
            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
         {
-            let fileUrl = url.appendingPathComponent("image\(imageId).png")
+            let fileUrl = url.appendingPathComponent("image\(imageId).jpg")
             do {
                 try data.write(to: fileUrl)
-                object = ImageBase(url: fileUrl.path, frame1: frame, opacity: opacity, imageIdData: imageId )
+                let object = ImageBase(url: fileUrl.path, frame1: frame, opacity: opacity, imageIdData: imageId, transform: transform)
                 return object
             } catch {
                 print(error.localizedDescription)
             }
             
         }
-        return object
+        return nil
     }
 }
 
@@ -156,4 +160,5 @@ struct ImageBase: Codable {
     var frame1 = CGRect.zero
     var opacity: CGFloat
     var imageIdData: String
+    var transform: CGAffineTransform = .identity
 }

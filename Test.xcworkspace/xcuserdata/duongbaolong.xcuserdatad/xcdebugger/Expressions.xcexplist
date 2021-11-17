@@ -3,10 +3,40 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "ImageData.imageToObject(_:):Project.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Project.saveData():Project.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "image">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GalleryView.reload():GalleryView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Project.loadData(_:):Project.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "image">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "GalleryView.selectImage(_:):GalleryView.swift">
          <PersistentStrings>
             <PersistentString
                value = "buttonDelete">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GalleryView.finishGesture(_:):GalleryView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "pr.image[i]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

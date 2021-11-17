@@ -70,7 +70,9 @@ class GalleryView: UIView {
         allImage.removeAll()
         for i in 0..<pr.image.count {
             let imageView = UIImageView(image: pr.image[i].image1)
-            imageView.layer.frame = pr.image[i].frame
+            
+            imageView.frame = pr.image[i].frame
+            imageView.transform = pr.image[i].transform
             imageView.alpha = pr.image[i].opacity
             setUpImageView(imageView)
             
@@ -131,26 +133,31 @@ class GalleryView: UIView {
         buttonDelete.alpha = 0
     }
     func setUpSelectView(_ view: UIImageView) {
-        guard let d = delegate, let pr = project else {return}
+        guard let d = delegate else {return}
         self.bringSubviewToFront(view)
         buttonDelete.alpha = 1
         d.changeSliderWithImage(view)
         selectedView = view
-        var index = 0
-        for i in 0..<allImage.count {
-            if view.image == allImage[i] {index = i}
-        }
-        pr.rerange(image: pr.image, fromIndex: index)
+
     }
-    
-    func finishGesture(_ view: UIImageView){
-        guard let pr = project else {return}
-        
-        for im in 0..<pr.image.count {
-            if view.image == pr.image[im].image1 {
-                pr.image[im].frame = view.frame
+    func popImageToFront(){
+        guard let pr = project,
+            let view = selectedView else {return}
+        for i in 0..<allImage.count {
+            if view == allImage[i] {
+                let indexSeclecView = i
+                pr.rerange(fromIndex: indexSeclecView)
             }
         }
+    }
+    func finishGesture(_ view: UIImageView){
+        guard let pr = project, let i = allImage.firstIndex(of: view) else {return}
+        
+        let t = view.transform
+        view.transform = .identity
+        pr.image[i].frame = view.frame
+        pr.image[i].transform = t
+        view.transform = t
     }
     
     func showButton(_ view: UIImageView) {
@@ -179,7 +186,7 @@ class GalleryView: UIView {
                 let centerImage = allImage[im].transform.concatenating(CGAffineTransform(translationX: allImage[im].frame.midX, y: allImage[im].frame.midY))
                 context.cgContext.concatenate(centerImage)
                 let rect = CGRect(x: -allImage[im].frame.width/2, y: -allImage[im].frame.height/2, width: allImage[im].frame.width, height: allImage[im].frame.height)
-                allImage[im].image?.draw(in: rect, blendMode: .normal, alpha: 1)
+                allImage[im].image?.draw(in: rect, blendMode: .normal, alpha: allImage[im].alpha)
                 context.cgContext.concatenate(centerImage.inverted())
             }
         }
@@ -199,10 +206,12 @@ class GalleryView: UIView {
                     }
                     selectedView = view
                     self.setUpSelectView(view)
+                    popImageToFront()
                     showButton(view)
                 }
                 else {
-                    finishChangedOpacity(view)
+                    popImageToFront()
+                    finishChangedOpacity(selectedView!)
                     d.galleryDeselect()
                     selectedView = nil
                     buttonDelete.alpha = 0
@@ -282,4 +291,9 @@ class GalleryView: UIView {
             print("end")
         }
     }
+}
+
+
+class TransformImageView: UIImageView {
+    var beginTransform = CGAffineTransform
 }
